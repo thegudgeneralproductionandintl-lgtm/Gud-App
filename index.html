@@ -34,7 +34,7 @@ async function login(){const email=$('liEmail').value.trim().toLowerCase(),pass=
 function enter(u,name,r){role=r;$('buyerHello').textContent='Hello, '+name+'!';$('producerHello').textContent='Hello, '+name+'!';show(r==='producer'?'producer':'buyer');loadProducts();}
 async function logout(){await client.auth.signOut();show('welcome');}
 $('signupBtn').onclick=signup;$('loginBtn').onclick=login;$('buyerLogout').onclick=logout;$('producerLogout').onclick=logout;
-async function loadProducts(){const {data,error}=await client.from('products').select('*').order('Name',{ascending:true});if(error){$('productsList').innerHTML='<div class="error">Could not load products: '+escapeHtml(error.message)+'</div>';return;}renderProducts(data||'');}
+async function loadProducts(){const {data,error}=await client.from('products').select('*').order('name',{ascending:true});if(error){$('productsList').innerHTML='<div class="error">Could not load products: '+escapeHtml(error.message)+'</div>';return;}renderProducts(data||'');}
 function renderProducts(data){const q=($('productSearch')?.value||'').toLowerCase();const rows=(data||[]).filter(p=>String(p.Name||'').toLowerCase().includes(q)||String(p.Description||'').toLowerCase().includes(q));$('productsList').innerHTML=rows.length?rows.map(p=>'<div class="product">'+(p.image_url?'<img src="'+escapeAttr(p.image_url)+'" onerror="this.style.display=\'none\'">':'')+'<b>'+escapeHtml(p.Name||'Unnamed product')+'</b><div class="price">₦'+escapeHtml(p.price??'')+'</div><p>'+escapeHtml(p.Description||'')+'</p></div>').join(''):'<p>No products found.</p>';}
 let cachedProducts=[];$('productSearch').oninput=async()=>{if(!cachedProducts.length){const {data}=await client.from('products').select('*');cachedProducts=data||[];}renderProducts(cachedProducts);};
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}function escapeAttr(s){return escapeHtml(s);}
@@ -43,11 +43,11 @@ document.querySelectorAll('.nav button').forEach(btn=>{
   btn.onclick=()=>{
     const name=btn.textContent.trim().toLowerCase();
 
-    if(name==='home'){
-      show('buyer');
-      return;
-    }
-
+if(name==='home'){
+  show('buyer');
+  loadProducts();
+  return;
+}
     if(name==='listing'||name==='listings'||name==='search'){
       show(role==='producer'?'producer':'buyer');
       loadProducts();
