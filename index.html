@@ -43,12 +43,13 @@ document.querySelectorAll('.nav button').forEach(btn=>{
   btn.onclick=()=>{
     const name=btn.textContent.trim().toLowerCase();
 
-if(name==='home'){
-  show('buyer');
-  loadProducts();
-  return;
-}
-    if(name==='listing'||name==='listings'||name==='search'){
+    if(name==='home'){
+      show('buyer');
+      loadProducts();
+      return;
+    }
+
+    if(name.includes('listing')||name==='search'){
       show(role==='producer'?'producer':'buyer');
       loadProducts();
       return;
@@ -69,4 +70,4 @@ if(name==='home'){
       return;
     }
   };
-});</script></body></html>
+});
