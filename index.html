@@ -20,7 +20,7 @@ const client=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 let role='buyer'; const $=id=>document.getElementById(id);
 function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));$(id).classList.add('active');}
 function setRole(r){role=r;$('buyerChoice').className=r==='buyer'?'':'secondary';$('producerChoice').className=r==='producer'?'':'secondary';}
-$('goSignup').onclick=()=>show('signup'); $('goLogin').onclick=()=>show('login'); $('backFromSignup').onclick=()=>show('welcome'); $('backFromLogin').onclick=()=>show('welcome'); $('toLogin').onclick=()=>show('login'); $('toSignup').onclick=()=>show('signup'); $('buyerChoice').onclick=()=>setRole('buyer'); $('producerChoice').onclick=()=>setRole('producer');
+$('goSignup').onclick=()=>show('signup'); $('goLogin').onclick=()=>show('login'); $('backFromSignup').onclick=()=>show('welcome'); $('backFromLogin').onclick=()=>show('welcome'); $('goLogin').onclick=()=>show('login'); $('toSignup').onclick=()=>show('signup'); $('buyerChoice').onclick=()=>setRole('buyer'); $('producerChoice').onclick=()=>setRole('producer');$('loginBtn').onclick=login;
 async function signup(){
  const name=$('suName').value.trim(),email=$('suEmail').value.trim().toLowerCase(),pass=$('suPass').value;
  $('suMsg').innerHTML=''; if(!name||!email||pass.length<6){$('suMsg').innerHTML='<div class="error">Enter your name, a valid email, and a password of at least 6 characters.</div>';return;}
