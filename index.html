@@ -49,7 +49,7 @@ document.querySelectorAll('.nav button').forEach(btn=>{
     }
 
     if(name==='listing'||name==='listings'||name==='search'){
-      show('buyer');
+      show(role==='producer'?'producer':'buyer');
       loadProducts();
       return;
     }
