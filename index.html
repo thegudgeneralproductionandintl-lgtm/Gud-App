@@ -39,4 +39,34 @@ function renderProducts(data){const q=($('productSearch')?.value||'').toLowerCas
 let cachedProducts=[];$('productSearch').oninput=async()=>{if(!cachedProducts.length){const {data}=await client.from('products').select('*');cachedProducts=data||[];}renderProducts(cachedProducts);};
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}function escapeAttr(s){return escapeHtml(s);}
 (async()=>{const {data}=await client.auth.getSession();if(data.session){const u=data.session.user,m=u.user_metadata||{};enter(u,m.full_name||'there',m.role||'buyer');}})();
-</script></body></html>
+document.querySelectorAll('.nav button').forEach(btn=>{
+  btn.onclick=()=>{
+    const name=btn.textContent.trim().toLowerCase();
+
+    if(name==='home'){
+      show('buyer');
+      return;
+    }
+
+    if(name==='listing'||name==='listings'||name==='search'){
+      show('buyer');
+      loadProducts();
+      return;
+    }
+
+    if(name==='orders'){
+      alert('Orders will appear here.');
+      return;
+    }
+
+    if(name==='messages'){
+      alert('Messages will appear here.');
+      return;
+    }
+
+    if(name==='profile'){
+      alert('Profile will appear here.');
+      return;
+    }
+  };
+});</script></body></html>
