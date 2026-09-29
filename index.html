@@ -13,10 +13,17 @@
 <section id="buyer" class="screen"><header><b>🌿 The GUD Product</b><button class="link" id="buyerLogout">Log out</button></header><main><p class="muted">Buyer account</p><h1 id="buyerHello">Hello!</h1><div class="field"><input id="productSearch" placeholder="🔎 Search products"></div><h2>Products</h2><div id="productsList"><p>Loading products...</p></div></main><div class="nav"><button>Home</button><button>Search</button><button>Orders</button><button>Messages</button><button>Profile</button></div></section>
 <section id="producer" class="screen"><header><b>🌿 The GUD Product</b><button class="link" id="producerLogout">Log out</button></header><main><p class="muted">Producer account</p><h1 id="producerHello">Welcome!</h1><div class="card"><b>Your products</b><p>Products from your Supabase database will appear here.</p></div><div id="producerProducts"></div></main><div class="nav"><button>Home</button><button>Listings</button><button>Orders</button><button>Messages</button><button>Profile</button></div></section>
 </div>
-<script>
+<script>const
 const SUPABASE_URL='https://ydtuvcukxuyqhcngffly.supabase.co';
 const SUPABASE_KEY='sb_publishable_ek2DJGfK4zFdDfYtQkx29w_i70ZN8xu';
-const client=window.supabase ? window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY) : null;
+ let client=null;
+try{
+  if(window.supabase && typeof window.supabase.createClient==='function'){
+    client=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+  }
+}catch(e){
+  console.error('Supabase initialization failed:',e);
+ }
 let role='buyer'; const $=id=>document.getElementById(id);
 function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));$(id).classList.add('active');}
 function setRole(r){role=r;$('buyerChoice').className=r==='buyer'?'':'secondary';$('producerChoice').className=r==='producer'?'':'secondary';}
