@@ -16,7 +16,7 @@
 <script>
 const SUPABASE_URL='https://ydtuvcukxuyqhcngffly.supabase.co';
 const SUPABASE_KEY='sb_publishable_ek2DJGfK4zFdDfYtQkx29w_i70ZN8xu';
-const client=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const client=window.supabase ? window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY) : null;
 let role='buyer'; const $=id=>document.getElementById(id);
 function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));$(id).classList.add('active');}
 function setRole(r){role=r;$('buyerChoice').className=r==='buyer'?'':'secondary';$('producerChoice').className=r==='producer'?'':'secondary';}
